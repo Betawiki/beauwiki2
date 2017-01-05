@@ -1,0 +1,68 @@
+---
+layout: default
+---
+<div class="row">
+<div class="col-md-8">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+          <header class="post-header">
+            <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+            <p class="post-meta">
+                <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{% assign m = page.date | date: "%-m" %}
+                    {{ page.date | date: "%-d" }}
+                    {% case m %}
+                        {% when '1' %}Janvier
+                        {% when '2' %}Février
+                        {% when '3' %}Mars
+                        {% when '4' %}Avril
+                        {% when '5' %}Mai
+                        {% when '6' %}Juin
+                        {% when '7' %}Juillet
+                        {% when '8' %}Août
+                        {% when '9' %}Septembre
+                        {% when '10' %}Octobre
+                        {% when '11' %}Novembre
+                        {% when '12' %}Décembre
+                    {% endcase %}
+                    {{ page.date | date: "%Y" }}
+                </time>
+                {% if page.author %} • 
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
+                {% endif %}
+                <div class="post-categories">
+                    {% if post %}
+                        {% assign categories = post.categories %}
+                    {% else %}
+                        {% assign categories = page.categories %}
+                    {% endif %}
+                    {% for category in categories %}
+                    <a href="{{site.baseurl}}/categories/{{category|slugize}}">{{category}}</a>
+                    {% unless forloop.last %}&nbsp;{% endunless %}
+                    {% endfor %}
+                </div>
+            </p>
+                 
+          </header>
+
+          <div class="post-content" itemprop="articleBody">
+            {{ content }}
+          </div>
+
+    </article>
+    
+</div>
+
+{% include sidebar.html %}
+
+</div>
+
+    <script>
+    (function() {
+        var font3 = document.createElement('link'); 
+        font3.type = 'text/css'; 
+        font3.rel = 'stylesheet';
+        font3.href = '{{site.baseurl}}/css/syntax-highlighting.css';
+        var q = document.getElementsByTagName('link')[0]; 
+        q.parentNode.insertBefore(font3, q);
+      })();
+</script>
